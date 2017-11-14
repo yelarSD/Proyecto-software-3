@@ -18,24 +18,19 @@ public class PlataformaFalling : MonoBehaviour {
 		start = transform.position;
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	void OnCollisionEnter2D(Collision2D col){
+	private void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.CompareTag("Player")){
 			Invoke("Fall", fallDelay);
 			Invoke("Respawn", fallDelay + respawnDelay);
 		}
 	}
 
-	void Fall(){
+	private void Fall(){
 		rb2d.isKinematic = false;
 		pc2d.isTrigger = true;
 	}
 
-	void Respawn(){
+	private void Respawn(){
 		transform.position = start;
 		rb2d.isKinematic = true;
 		rb2d.velocity = Vector3.zero;

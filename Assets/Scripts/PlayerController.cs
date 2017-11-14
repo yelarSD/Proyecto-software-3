@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public float maxSpeed = 5f;
-	public float speed = 2f;
+	private float maxSpeed = 3.5f;
+	private float speed = 75f;
 	public bool grounded;
+	public bool wather;
+	public bool canMove;
 	public float jumpPower = 6.5f;
 
 	private Rigidbody2D rb2d;
@@ -16,17 +18,42 @@ public class PlayerController : MonoBehaviour {
 	private bool doubleJump;
 	private bool movement = true;
 
+	//nuevo
+	private LevelManager theLevelManager;
+	public Vector3 respawnPosition;
+
+	public GameObject stompBox;
+	public Rigidbody2D myRigidbody;
+
+	// Knockback variables when player gets hit
+	public float knockbackForce;
+	public float knockbackLength;
+	private float knockbackCounter;
+
+	private float invincibilityLength;
+	private float invincibilityCounter;
+
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		rb2d = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		spr = GetComponent<SpriteRenderer>();
+		canMove = true;
+		
+		//nuevo
+		respawnPosition = transform.position;
+		theLevelManager = FindObjectOfType<LevelManager>();
+	}
+
+	public bool inMovenment(){
+		return movement;
 	}
 
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
 		anim.SetBool("Grounded", grounded);
+		anim.SetBool ("Wather", wather);
 
 		if (grounded){
 			doubleJump = true;
@@ -40,10 +67,16 @@ public class PlayerController : MonoBehaviour {
 				jump = true;
 				doubleJump = false;
 			}
+
+			if(wather){
+				jump = true;
+				doubleJump = false;
+			}
+
 		}
 	}
 
-	void FixedUpdate(){
+	private void FixedUpdate(){
 
 		Vector3 fixedVelocity = rb2d.velocity;
 		fixedVelocity.x *= 0.75f;
@@ -74,10 +107,23 @@ public class PlayerController : MonoBehaviour {
 			jump = false;
 		}
 
-		//Debug.Log(rb2d.velocity.x);
+		if (knockbackCounter > 0)
+		{
+			knockbackCounter -= Time.deltaTime;
+		}
+		if (invincibilityCounter > 0)
+		{
+			invincibilityCounter -= Time.deltaTime;
+		}
+		if (invincibilityCounter <= 0)
+		{
+
+			theLevelManager.invincible = false;
+		}
+			
 	}
 
-	void OnBecameInvisible(){
+	private void OnBecameInvisible(){
 		transform.position = new Vector3(-1,0,0);
 	}
 
@@ -98,9 +144,40 @@ public class PlayerController : MonoBehaviour {
 		spr.color = color;
 	}
 
-	void EnableMovement(){
+
+	//Eliminado por codacy
+	private void EnableMovement(){
 		movement = true;
 		spr.color = Color.white;
+	}
+
+
+	public void Knockback()
+	{
+		knockbackCounter = knockbackLength;
+		invincibilityCounter = invincibilityLength;
+		theLevelManager.invincible = true;
+	}
+
+	// NUEVO Triggers have 3 phases, Enter, In, Exit
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		// If the Player enters the KillPlane zone it will deactivate the player
+		if (other.tag == "KillPlane")
+		{
+			theLevelManager.Respawn();
+		}
+
+		// If the player enters Checkpoint zone it will set the new respawn point
+		if (other.tag == "Checkpoint")
+		{
+			// Simply set the respawnPoisition to be Checkpoints position
+			respawnPosition = other.transform.position;
+			if (enabled)
+			{
+				other.enabled = false;
+			}
+		}
 	}
 
 }

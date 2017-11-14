@@ -10,7 +10,7 @@ public class PlataformaMovil : MonoBehaviour {
 	private Vector3 start, end;
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		if(target != null) {
 			target.parent = null;
 			start = transform.position;
@@ -18,12 +18,7 @@ public class PlataformaMovil : MonoBehaviour {
 		}
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	void FixedUpdate(){
+	private void FixedUpdate(){
 		if (target != null) {
 			float fixedSpeed = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards(transform.position, target.position, fixedSpeed);

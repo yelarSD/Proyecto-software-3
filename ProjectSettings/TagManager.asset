@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Ground
   - Platform
+  - Wather
+  - ColliderQuest
+  - EnemyGreenWiggle
+  - EnemySpider
+  - KillPlane
+  - MovingPlatform
+  - Checkpoint
+  - Ruedas
+  - PlatformFall
   layers:
   - Default
   - TransparentFX
@@ -17,7 +26,7 @@ TagManager:
   - 
   - Player
   - Enemies
-  - 
+  - Ground
   - 
   - 
   - 
@@ -45,4 +54,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1981752175
+    locked: 0
+  - name: World Objects
+    uniqueID: 878971721
     locked: 0

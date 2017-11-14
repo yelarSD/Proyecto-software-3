@@ -10,13 +10,9 @@ public class CameraFollow : MonoBehaviour {
 
 	private Vector2 velocity;
 
-	// Use this for initialization
-	void Start () {
-
-	}
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	private void FixedUpdate () {
 		float posX = Mathf.SmoothDamp(transform.position.x,
 			follow.transform.position.x, ref velocity.x, smoothTime);
 		float posY = Mathf.SmoothDamp(transform.position.y,
@@ -27,4 +23,5 @@ public class CameraFollow : MonoBehaviour {
 			Mathf.Clamp(posY, minCamPos.y, maxCamPos.y),
 			transform.position.z);
 	}
+
 }

@@ -9,5 +9,29 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: a46ece8e915b3f94d93da12e5ac6f719
   - enabled: 1
-    path: Assets/Scenes/Principal.unity
+    path: Assets/Scenes/InicioHogar.unity
+    guid: 8056d49c903212b46b52733c423fcad7
+  - enabled: 1
+    path: Assets/Scenes/Agua.unity
+    guid: bce3708ba0853c744b3a581dbdc9a7f4
+  - enabled: 1
+    path: Assets/Scenes/Desierto.unity
+    guid: 0447f5417240f224bbf3fdc53d5b799a
+  - enabled: 1
+    path: Assets/Scenes/Metalico.unity
+    guid: d47070c37914b07458e0d1fb3390db22
+  - enabled: 1
+    path: Assets/Scenes/Principal2.unity
+    guid: 1f58a2772d5fc7d4d9fe57dc33bdc2a1
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 91583243ee2752a48b71dd0ac04d03bc
+  - enabled: 1
+    path: Assets/Scenes/PruebaPDF.unity
+    guid: cc90246de1fcf1d409dc319fd83a4b0a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
     guid: cf8ba124987b3e24f8ad8e8bc2b54d8c
